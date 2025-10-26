@@ -1,0 +1,6 @@
+[submodule "analitic-service"]
+	path = analitic-service
+	url = https://github.com/ilhamdjango/analitic-service.git
+[submodule "ecomerce-gateway-service"]
+	path = ecomerce-gateway-service
+	url = https://github.com/ilhamdjango/ecomerce-gateway-service.git
