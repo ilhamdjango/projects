@@ -26,9 +26,12 @@ jobs:
           --health-retries 5
 
     steps:
-      # 1️⃣ Kodun checkoutu
+      # 1️⃣ Kodun checkoutu (submodule-larla birlikdə)
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
 
       # 2️⃣ Python quraşdır
       - name: Set up Python
