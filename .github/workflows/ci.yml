@@ -27,36 +27,29 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Upgrade pip
-        run: pip install --upgrade pip
+      - run: pip install --upgrade pip
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        working-directory: ./ecommerce-analitic
+      - run: pip install -r requirements.txt
+        working-directory: ./analitic-service
 
-
-      - name: Set environment variables
-        run: |
+      - run: |
           echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
           echo "DATABASE_URL=postgres://user:password@localhost:5432/analitic_db" >> $GITHUB_ENV
 
-      - name: Run Django tests
-        run: python manage.py test
-        working-directory: ./ecommerce-analitic
+      - run: python manage.py test
+        working-directory: ./analitic-service
 
-      - name: Build Docker image
-        run: docker build -t my-analitic-app:${{ github.sha }} ./ecommerce-analitic
+      - run: docker build -t my-analitic-app:${{ github.sha }} ./analitic-service
 
-      - name: Push Docker image
-        if: github.ref == 'refs/heads/main'
+      - if: github.ref == 'refs/heads/main'
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push my-analitic-app:${{ github.sha }}
@@ -81,35 +74,29 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Upgrade pip
-        run: pip install --upgrade pip
+      - run: pip install --upgrade pip
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt
         working-directory: ./ecomerce-gateway-service
 
-      - name: Set environment variables
-        run: |
+      - run: |
           echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
           echo "DATABASE_URL=postgres://user:password@localhost:5432/gateway_db" >> $GITHUB_ENV
 
-      - name: Run Django tests
-        run: python manage.py test
+      - run: python manage.py test
         working-directory: ./ecomerce-gateway-service
 
-      - name: Build Docker image
-        run: docker build -t my-gateway-app:${{ github.sha }} ./ecomerce-gateway-service
+      - run: docker build -t my-gateway-app:${{ github.sha }} ./ecomerce-gateway-service
 
-      - name: Push Docker image
-        if: github.ref == 'refs/heads/main'
+      - if: github.ref == 'refs/heads/main'
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push my-gateway-app:${{ github.sha }}
