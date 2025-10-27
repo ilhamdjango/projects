@@ -1,0 +1,67 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-docker:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # 1️⃣ Kodun checkoutu
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2️⃣ Python quraşdır
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      # 3️⃣ Asılılıqları quraşdır
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r analitic-service/requirements.txt
+
+      # 4️⃣ Env dəyişənləri
+      - name: Set environment variables
+        run: |
+          echo "DJANGO_SETTINGS_MODULE=analitic_service.settings" >> $GITHUB_ENV
+          echo "DATABASE_URL=postgres://user:password@localhost:5432/test_db" >> $GITHUB_ENV
+
+      # 5️⃣ Testləri işə sal
+      - name: Run Django tests
+        run: python analitic-service/manage.py test
+
+      # 6️⃣ Docker image yarat (opsional)
+      - name: Build Docker image
+        run: docker build -t my-django-app:${{ github.sha }} .
+
+      # 7️⃣ DockerHub push (opsional, istifadə üçün token lazımdır)
+      #- name: Login to DockerHub
+      #  uses: docker/login-action@v2
+      #  with:
+      #    username: ${{ secrets.DOCKER_USERNAME }}
+      #    password: ${{ secrets.DOCKER_PASSWORD }}
+      #
+      #- name: Push Docker image
+      #  run: docker push my-django-app:${{ github.sha }}
