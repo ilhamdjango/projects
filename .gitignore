@@ -1,0 +1,22 @@
+# Virtual environments
+.venv/
+gateway_env/
+
+# IDE files
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+
+# Root səviyyəsində faylları nəzərə alma
+README.md
