@@ -53,7 +53,7 @@ jobs:
         working-directory: ./ecommerce-analitic
 
       - name: Build Docker image
-        run: docker build -t my-analitic-app:${{ github.sha }} ./projects/ecommerce-analitic
+        run: docker build -t my-analitic-app:${{ github.sha }} ./ecommerce-analitic
 
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
@@ -106,7 +106,7 @@ jobs:
         working-directory: ./ecomerce-gateway-service
 
       - name: Build Docker image
-        run: docker build -t my-gateway-app:${{ github.sha }} ./projects/ecomerce-gateway-service
+        run: docker build -t my-gateway-app:${{ github.sha }} ./ecomerce-gateway-service
 
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
