@@ -40,7 +40,8 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./projects/ecommerce-analitic
+        working-directory: ./ecommerce-analitic
+
 
       - name: Set environment variables
         run: |
@@ -49,7 +50,7 @@ jobs:
 
       - name: Run Django tests
         run: python manage.py test
-        working-directory: ./projects/ecommerce-analitic
+        working-directory: ./ecommerce-analitic
 
       - name: Build Docker image
         run: docker build -t my-analitic-app:${{ github.sha }} ./projects/ecommerce-analitic
@@ -93,7 +94,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./projects/ecomerce-gateway-service
+        working-directory: ./ecomerce-gateway-service
 
       - name: Set environment variables
         run: |
@@ -102,7 +103,7 @@ jobs:
 
       - name: Run Django tests
         run: python manage.py test
-        working-directory: ./projects/ecomerce-gateway-service
+        working-directory: ./ecomerce-gateway-service
 
       - name: Build Docker image
         run: docker build -t my-gateway-app:${{ github.sha }} ./projects/ecomerce-gateway-service
