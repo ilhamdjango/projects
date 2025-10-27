@@ -26,36 +26,42 @@ jobs:
           --health-retries 5
 
     steps:
+      # 1️⃣ Repo-nu checkout et
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           submodules: true
           fetch-depth: 0
 
+      # 2️⃣ Python quraşdır
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
-        working-directory: ./analitic-service
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+      # 3️⃣ Pip güncəllə
+      - name: Upgrade pip
+        run: pip install --upgrade pip
 
+      # 4️⃣ Dependencies qur
+      - name: Install requirements
+        run: pip install -r ./analitic-service/requirements.txt
+
+      # 5️⃣ Ətraf mühit dəyişənləri
       - name: Set environment variables
         run: |
-          echo "DJANGO_SETTINGS_MODULE=analitic.settings" >> $GITHUB_ENV
+          echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
           echo "DATABASE_URL=postgres://user:password@localhost:5432/test_db" >> $GITHUB_ENV
 
+      # 6️⃣ Django testlərini çalışdır
       - name: Run Django tests
-        working-directory: ./analitic-service
-        run: python manage.py test
+        run: python ./analitic-service/manage.py test
 
+      # 7️⃣ Docker image qur
       - name: Build Docker image
-        run: docker build -t my-django-app:${{ github.sha }} .
+        run: docker build -t my-django-app:${{ github.sha }} ./analitic-service
 
-      # DockerHub push opsional
+      # 8️⃣ Opsional: DockerHub push
       #- name: Login to DockerHub
       #  uses: docker/login-action@v2
       #  with:
