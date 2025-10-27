@@ -94,11 +94,10 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
           echo "DATABASE_URL=postgres://user:password@localhost:5432/gateway_db" >> $GITHUB_ENV
 
-      - name: Run Django tests
-        run: python manage.py test
+      - name: Run FastAPI tests
+        run: pytest tests/
         working-directory: ./ecomerce-gateway-service
 
       - name: Build Docker image
@@ -108,3 +107,4 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push dockerilham117/projects-gateway:latest
+
