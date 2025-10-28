@@ -21,7 +21,7 @@ services:
     container_name: ecommerce-analytic
     command: bash -c "./entrypoint.sh"
     ports:
-      - "8001:8080"  # host:container
+      - "8001:8080"
     depends_on:
       - db
     networks:
@@ -37,8 +37,21 @@ services:
       - ./ecomerce-gateway-service:/app
     environment:
       SERVICE_ANALITICA: http://analytic:8080
+      SERVICE_ORDER: http://order:8080
     depends_on:
       - analytic
+      - order
+    networks:
+      - ecommerce_net
+    restart: always
+
+  order:
+    image: dockerilham117/projects-order:latest
+    container_name: ecommerce-order
+    ports:
+      - "8002:8080"
+    depends_on:
+      - db
     networks:
       - ecommerce_net
     restart: always
