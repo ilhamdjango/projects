@@ -48,9 +48,10 @@ jobs:
       - name: Run tests
         working-directory: ./analitic-service
         env:
-         DJANGO_SETTINGS_MODULE: analitic_service.settings
          PYTHONPATH: .
+         DJANGO_SETTINGS_MODULE: config.settings
         run: pytest analitic/tests/
+
 
 
       - name: Build Docker image
