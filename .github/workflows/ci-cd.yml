@@ -44,12 +44,11 @@ jobs:
         run: pip install -r requirements.txt
         working-directory: ./analitic-service
         
-      - name: Run tests
-        run: pytest analitic/tests/
 
       - name: Run tests
-        run: pytest analitic/tests/
         working-directory: ./analitic-service
+        run: pytest analitic/tests/
+
 
       - name: Build Docker image
         run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
