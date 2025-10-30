@@ -38,21 +38,21 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./eccomerce-analitica
+        working-directory: ./analitic-service
 
       - name: Run tests
         run: pytest tests/
-        working-directory: ./eccomerce-analitica
+        working-directory: ./analitic-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-analitic:latest ./eccomerce-analitica
+        run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}  # GitHub secrets-da qeyd etdiyiniz username
-          password: ${{ secrets.DOCKER_PASSWORD }}  # GitHub secrets-da qeyd etdiyiniz password
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
@@ -89,7 +89,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./eccomerce-gateway-service
+        working-directory: ./ecomerce-gateway-service
 
       - name: Set environment variables
         run: |
@@ -97,10 +97,10 @@ jobs:
 
       - name: Run tests
         run: pytest tests/
-        working-directory: ./eccomerce-gateway-service
+        working-directory: ./ecomerce-gateway-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-gateway:latest ./eccomerce-gateway-service
+        run: docker build -t dockerilham117/projects-gateway:latest ./ecomerce-gateway-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
@@ -144,7 +144,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./Ecommerce-order-service
+        working-directory: ./order-service
 
       - name: Set environment variables
         run: |
@@ -155,10 +155,10 @@ jobs:
 
       - name: Run tests
         run: python manage.py test
-        working-directory: ./Ecommerce-order-service
+        working-directory: ./order-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-order:latest ./Ecommerce-order-service
+        run: docker build -t dockerilham117/projects-order:latest ./order-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
