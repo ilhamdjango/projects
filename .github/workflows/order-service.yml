@@ -17,13 +17,13 @@ jobs:
         with:
           submodules: recursive
 
-      # 2️⃣ Docker Buildx (build və multi-platform dəstəyi üçün)
+      # 2️⃣ Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 3️⃣ Build Docker image
+      # ✅ 3️⃣ Build Docker image (düzgün qovluq adı ilə)
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-order:latest ./ecommerce-order-service
+        run: docker build -t dockerilham117/projects-order:latest ./order-service
 
       # 4️⃣ Log in to Docker Hub
       - name: Log in to Docker Hub
