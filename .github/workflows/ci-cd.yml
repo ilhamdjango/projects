@@ -150,12 +150,14 @@ jobs:
       - name: Check contents
         run: ls -la ./order-service
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install dependencies (Poetry)
+        run: |
+          pip install poetry
+          poetry install
         working-directory: ./order-service
 
       - name: Run tests
-        run: python manage.py test
+        run: poetry run python manage.py test
         working-directory: ./order-service
 
       - name: Build Docker image
