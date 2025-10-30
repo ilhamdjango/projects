@@ -6,6 +6,6 @@
     path = ecomerce-gateway-service
     url = https://github.com/ilhamdjango/ecomerce-gateway-service.git
 
-[submodule "ecommerce-order-service"]
-    path = ecommerce-order-service
+[submodule "order-service"]
+    path = order-service
     url = https://github.com/ilhamdjango/Ecommerce-order-service.git
