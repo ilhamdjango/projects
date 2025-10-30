@@ -14,17 +14,58 @@ jobs:
   order:
     name: Order Service CI/CD
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: order_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
+      # 1️⃣ Checkout kodu (submodule-larla birlikdə)
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # 2️⃣ Python və ya backend mühiti (əgər lazımdırsa)
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
+      - run: pip install --upgrade pip
+
+      # 3️⃣ Asılılıqların quraşdırılması (əgər Order service Python-dursa)
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        working-directory: ./order-service
+
+      # 4️⃣ Environment dəyişənləri
+      - name: Set environment variables
+        run: |
+          echo "DATABASE_URL=postgres://user:password@localhost:5432/order_db" >> $GITHUB_ENV
+          echo "POSTGRES_DB=order_db" >> $GITHUB_ENV
+          echo "POSTGRES_USER=user" >> $GITHUB_ENV
+          echo "POSTGRES_PASSWORD=password" >> $GITHUB_ENV
+
+      # 5️⃣ Testlər (əgər varsa)
+      - name: Run tests
+        run: python manage.py test
+        working-directory: ./order-service
+
+      # 6️⃣ Docker Build
       - name: Build Docker image
         run: docker build -t dockerilham117/projects-order:latest ./order-service
 
+      # 7️⃣ Docker Hub login
       - name: Log in to Docker Hub
         if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v2
@@ -32,6 +73,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # 8️⃣ Docker push
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-order:latest
