@@ -31,24 +31,25 @@ jobs:
           --health-retries 5
 
     steps:
-      # 1️⃣ Checkout kodu (submodule-larla birlikdə)
+      # 1️⃣ Checkout repository
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      # 2️⃣ Python və ya backend mühiti (əgər lazımdırsa)
+      # 2️⃣ Python setup
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - run: pip install --upgrade pip
+      - name: Upgrade pip
+        run: pip install --upgrade pip
 
-      # 3️⃣ Asılılıqların quraşdırılması (əgər Order service Python-dursa)
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: pip install -r requirements.txt
         working-directory: ./order-service
 
-      # 4️⃣ Environment dəyişənləri
+      # 4️⃣ Set environment variables
       - name: Set environment variables
         run: |
           echo "DATABASE_URL=postgres://user:password@localhost:5432/order_db" >> $GITHUB_ENV
@@ -56,24 +57,24 @@ jobs:
           echo "POSTGRES_USER=user" >> $GITHUB_ENV
           echo "POSTGRES_PASSWORD=password" >> $GITHUB_ENV
 
-      # 5️⃣ Testlər (əgər varsa)
+      # 5️⃣ Run tests (Python/Django)
       - name: Run tests
         run: python manage.py test
         working-directory: ./order-service
 
-      # 6️⃣ Docker Build
+      # 6️⃣ Build Docker image
       - name: Build Docker image
         run: docker build -t dockerilham117/projects-order:latest ./order-service
 
-      # 7️⃣ Docker Hub login
+      # 7️⃣ Docker login
       - name: Log in to Docker Hub
         if: github.ref == 'refs/heads/main'
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 8️⃣ Docker push
+      # 8️⃣ Push Docker image
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-order:latest
