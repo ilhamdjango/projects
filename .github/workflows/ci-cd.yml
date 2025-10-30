@@ -47,6 +47,9 @@ jobs:
 
       - name: Run tests
         working-directory: ./analitic-service
+        env:
+         DJANGO_SETTINGS_MODULE: analitic_service.settings
+         PYTHONPATH: .
         run: pytest analitic/tests/
 
 
