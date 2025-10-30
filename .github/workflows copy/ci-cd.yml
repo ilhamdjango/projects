@@ -43,15 +43,15 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Install dependencies
-        working-directory: ./eccomerce-analitica
+        working-directory: ./analitic-service
         run: pip install -r requirements.txt
 
       - name: Run tests
-        working-directory: ./eccomerce-analitica
+        working-directory: ./analitic-service
         run: pytest || echo "Tests skipped"
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-analitic:latest ./eccomerce-analitica
+        run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
@@ -153,15 +153,15 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Install dependencies
-        working-directory: ./Ecommerce-order-service
+        working-directory: ./order-service
         run: pip install -r requirements.txt
 
       - name: Run tests
-        working-directory: ./Ecommerce-order-service
+        working-directory: ./order-service
         run: python manage.py test || echo "Tests skipped"
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-order:latest ./Ecommerce-order-service
+        run: docker build -t dockerilham117/projects-order:latest ./order-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
