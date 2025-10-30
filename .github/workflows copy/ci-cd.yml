@@ -38,14 +38,14 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./analitic-service
+        working-directory: ./eccomerce-analitica
 
       - name: Run tests
         run: pytest tests/
-        working-directory: ./analitic-service
+        working-directory: ./eccomerce-analitica
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
+        run: docker build -t dockerilham117/projects-analitic:latest ./eccomerce-analitica
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
@@ -89,7 +89,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./ecomerce-gateway-service
+        working-directory: ./eccomerce-gateway-service
 
       - name: Set environment variables
         run: |
@@ -97,10 +97,10 @@ jobs:
 
       - name: Run tests
         run: pytest tests/
-        working-directory: ./ecomerce-gateway-service
+        working-directory: ./eccomerce-gateway-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-gateway:latest ./ecomerce-gateway-service
+        run: docker build -t dockerilham117/projects-gateway:latest ./eccomerce-gateway-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
@@ -144,7 +144,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./order-service
+        working-directory: ./Ecommerce-order-service
 
       - name: Set environment variables
         run: |
@@ -155,10 +155,10 @@ jobs:
 
       - name: Run tests
         run: python manage.py test
-        working-directory: ./order-service
+        working-directory: ./Ecommerce-order-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-order:latest ./order-service
+        run: docker build -t dockerilham117/projects-order:latest ./Ecommerce-order-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
