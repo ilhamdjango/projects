@@ -38,18 +38,18 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Check contents
-        run: ls -la ./eccomerce-analitica
+        run: ls -la ./analitic-service
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./eccomerce-analitica
+        working-directory: ./analitic-service
 
       - name: Run tests
         run: pytest tests/
-        working-directory: ./eccomerce-analitica
+        working-directory: ./analitic-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-analitic:latest ./eccomerce-analitica
+        run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
@@ -93,18 +93,18 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Check contents
-        run: ls -la ./eccomerce-gateway-service
+        run: ls -la ./ecomerce-gateway-service
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./eccomerce-gateway-service
+        working-directory: ./ecomerce-gateway-service
 
       - name: Run tests
         run: pytest tests/
-        working-directory: ./eccomerce-gateway-service
+        working-directory: ./ecomerce-gateway-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-gateway:latest ./eccomerce-gateway-service
+        run: docker build -t dockerilham117/projects-gateway:latest ./ecomerce-gateway-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
@@ -148,18 +148,18 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Check contents
-        run: ls -la ./Ecommerce-order-service
+        run: ls -la ./order-service
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./Ecommerce-order-service
+        working-directory: ./order-service
 
       - name: Run tests
         run: python manage.py test
-        working-directory: ./Ecommerce-order-service
+        working-directory: ./order-service
 
       - name: Build Docker image
-        run: docker build -t dockerilham117/projects-order:latest ./Ecommerce-order-service
+        run: docker build -t dockerilham117/projects-order:latest ./order-service
 
       - name: Docker login
         if: github.ref == 'refs/heads/main'
