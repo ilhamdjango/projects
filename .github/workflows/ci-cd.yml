@@ -58,6 +58,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-analitic:latest
 
+
+        
   gateway:
     name: Gateway Service CI/CD
     runs-on: ubuntu-latest
