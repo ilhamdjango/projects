@@ -4,8 +4,8 @@
 
 [submodule "ecomerce-gateway-service"]
     path = ecomerce-gateway-service
-    url = https://github.com/ilhamdjango/eccomerce-gateway-service.git
+    url = https://github.com/ilhamdjango/ecomerce-gateway-service.git
 
 [submodule "order-service"]
-	path = order-service
-	url = https://github.com/ilhamdjango/Ecommerce-order-service.git
+    path = order-service
+    url = https://github.com/ilhamdjango/Ecommerce-order-service.git
