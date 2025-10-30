@@ -1,6 +1,15 @@
 [submodule "analitic-service"]
     path = analitic-service
-	url = https://github.com/ilhamdjango/eccomerce-analitica.git
+    url = https://github.com/ilhamdjango/eccomerce-analitica.git
+
 [submodule "ecomerce-gateway-service"]
     path = ecomerce-gateway-service
-	url = https://github.com/ilhamdjango/eccomerce-gateway-service.git
+    url = https://github.com/ilhamdjango/eccomerce-gateway-service.git
+
+[submodule "ecommerce-order-service"]
+    path = ecommerce-order-service
+    url = https://github.com/murtuzavalicanov/Ecommerce-order-service.git
+    branch = main
+[submodule "order-service"]
+	path = order-service
+	url = https://github.com/murtuzavalicanov/Ecommerce-order-service.git
