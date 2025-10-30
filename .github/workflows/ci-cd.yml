@@ -45,7 +45,7 @@ jobs:
         working-directory: ./analitic-service
 
       - name: Run tests
-        run: pytest tests/
+        run: pytest analitic/tests/
         working-directory: ./analitic-service
 
       - name: Build Docker image
@@ -148,17 +148,17 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Check contents
-        run: ls -la ./order-service
+        run: ls -la ./order-service/order_service
 
       - name: Install dependencies (Poetry)
         run: |
           pip install poetry
           poetry install
-        working-directory: ./order-service
+        working-directory: ./order-service/order_service
 
       - name: Run tests
         run: poetry run python manage.py test
-        working-directory: ./order-service
+        working-directory: ./order-service/order_service
 
       - name: Build Docker image
         run: docker build -t dockerilham117/projects-order:latest ./order-service
