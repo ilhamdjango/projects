@@ -80,7 +80,12 @@ jobs:
 
       - name: Run tests
         working-directory: ./analitic-service
-        run: pytest analitic/tests/ -v --disable-warnings --maxfail=1
+        env:
+         PYTHONPATH: .
+         DJANGO_SETTINGS_MODULE: config.settings
+        run: |
+         pytest analitic/tests/ -v --disable-warnings --maxfail=1
+
 
       - name: Build Docker image
         run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
