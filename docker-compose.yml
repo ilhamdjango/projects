@@ -45,16 +45,15 @@ services:
       - ecommerce_net
     restart: always
 
-  order:
-    image: dockerilham117/projects-order:latest
-    container_name: ecommerce-order
-    ports:
-      - "8002:8080"
-    depends_on:
-      - db
-    networks:
-      - ecommerce_net
-    restart: always
+order:
+  image: dockerilham117/projects-order:latest
+  container_name: ecommerce-order
+  env_file:
+    - .env
+  networks:
+    - ecommerce_net
+  restart: always
+
 
 volumes:
   postgres_data:
