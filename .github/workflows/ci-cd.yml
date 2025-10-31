@@ -15,13 +15,13 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: analitic_db
+          POSTGRES_USER: ecommerce_user
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: ecommerce_db
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U user"
+          --health-cmd "pg_isready -U ecommerce_user"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -29,9 +29,9 @@ jobs:
     env:
       DJANGO_SETTINGS_MODULE: config.settings
       PYTHONPATH: .
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: analitic_db
+      POSTGRES_USER: ecommerce_user
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: ecommerce_db
       POSTGRES_HOST: localhost
       SECRET_KEY: dummy_secret_key_for_tests
       DEBUG: "True"
@@ -57,7 +57,7 @@ jobs:
         run: |
           echo "⏳ Waiting for PostgreSQL to be ready..."
           for i in {1..10}; do
-            if pg_isready -h localhost -U user; then
+            if pg_isready -h localhost -U ecommerce_user; then
               echo "✅ PostgreSQL is ready!"
               break
             fi
@@ -85,6 +85,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-analitic:latest
 
+
   gateway:
     name: Gateway Service CI/CD
     runs-on: ubuntu-latest
@@ -93,11 +94,11 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: gateway_db
+          POSTGRES_USER: ecommerce_user
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: ecommerce_db
         options: >-
-          --health-cmd "pg_isready -U user"
+          --health-cmd "pg_isready -U ecommerce_user"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -114,9 +115,6 @@ jobs:
 
       - name: Upgrade pip
         run: pip install --upgrade pip
-
-      - name: Check contents
-        run: ls -la ./ecomerce-gateway-service
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -149,11 +147,11 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: order_db
+          POSTGRES_USER: ecommerce_user
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: ecommerce_db
         options: >-
-          --health-cmd "pg_isready -U user"
+          --health-cmd "pg_isready -U ecommerce_user"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -170,9 +168,6 @@ jobs:
 
       - name: Upgrade pip
         run: pip install --upgrade pip
-
-      - name: Check contents
-        run: ls -la ./order-service/order_service
 
       - name: Install dependencies (Poetry)
         run: |
@@ -197,10 +192,3 @@ jobs:
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-order:latest
-
-
-
-
-
-
-
