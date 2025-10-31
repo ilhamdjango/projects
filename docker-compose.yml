@@ -49,10 +49,12 @@ services:
     image: dockerilham117/projects-order:latest
     container_name: ecommerce-order
     env_file:
-      - .env
+      - ./order-service/.env   # <--- path düzəltdik
     networks:
       - ecommerce_net
     restart: always
+
+
 
 volumes:
   postgres_data:
