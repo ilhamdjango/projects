@@ -45,15 +45,14 @@ services:
       - ecommerce_net
     restart: always
 
-order:
-  image: dockerilham117/projects-order:latest
-  container_name: ecommerce-order
-  env_file:
-    - .env
-  networks:
-    - ecommerce_net
-  restart: always
-
+  order:
+    image: dockerilham117/projects-order:latest
+    container_name: ecommerce-order
+    env_file:
+      - .env
+    networks:
+      - ecommerce_net
+    restart: always
 
 volumes:
   postgres_data:
