@@ -49,9 +49,6 @@ jobs:
       - name: Upgrade pip
         run: pip install --upgrade pip
 
-      - name: Check contents
-        run: ls -la ./analitic-service
-
       - name: Install dependencies
         run: pip install -r requirements.txt
         working-directory: ./analitic-service
@@ -67,25 +64,12 @@ jobs:
             sleep 2
           done
 
-      - name: Django setup check
-        working-directory: ./analitic-service
-        run: |
-          echo "✅ Checking Django environment"
-          python - <<'PYCODE'
-          import os, django
-          os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-          django.setup()
-          print("Django setup successful ✅")
-          PYCODE
-
-      - name: Run tests
+      - name: Run Django tests
         working-directory: ./analitic-service
         env:
-         PYTHONPATH: .
-         DJANGO_SETTINGS_MODULE: config.settings
-        run: |
-         pytest analitic/tests/ -v --disable-warnings --maxfail=1
-
+          PYTHONPATH: .
+          DJANGO_SETTINGS_MODULE: config.settings
+        run: pytest analitic/tests/ -v --disable-warnings --maxfail=1
 
       - name: Build Docker image
         run: docker build -t dockerilham117/projects-analitic:latest ./analitic-service
@@ -100,7 +84,6 @@ jobs:
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-analitic:latest
-
 
   gateway:
     name: Gateway Service CI/CD
@@ -214,3 +197,10 @@ jobs:
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
         run: docker push dockerilham117/projects-order:latest
+
+
+
+
+
+
+
