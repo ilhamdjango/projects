@@ -22,3 +22,6 @@
 [submodule "ecommerce-redis"]
 	path = ecommerce-redis
 	url = https://github.com/ilhamdjango/ecommerce-redis.git
+[submodule "path/to/ecommerce-rabitmq"]
+	path = path/to/ecommerce-rabitmq
+	url = https://github.com/ilhamdjango/ecommerce-rabitmq.git
