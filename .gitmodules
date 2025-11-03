@@ -19,3 +19,6 @@
 [submodule "ecommerce-shopcart"]
 	path = ecommerce-shopcart
 	url = https://github.com/ilhamdjango/ecimmerce-shopcart.git
+[submodule "ecommerce-redis"]
+	path = ecommerce-redis
+	url = https://github.com/ilhamdjango/ecommerce-redis.git
