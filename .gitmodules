@@ -25,3 +25,6 @@
 [submodule "path/to/ecommerce-rabitmq"]
 	path = path/to/ecommerce-rabitmq
 	url = https://github.com/ilhamdjango/ecommerce-rabitmq.git
+[submodule "ecommerce-rabitmq"]
+	path = ecommerce-rabitmq
+	url = https://github.com/ilhamdjango/ecommerce-rabitmq.git
