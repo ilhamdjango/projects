@@ -7,3 +7,6 @@
 [submodule "ecomerce-gateway-service"]
 	path = ecomerce-gateway-service
 	url = https://github.com/ilhamdjango/eccomerce-gateway-service.git
+[submodule "ecommerce-whislist"]
+	path = ecommerce-whislist
+	url = https://github.com/ilhamdjango/ecommerce-whislist.git
