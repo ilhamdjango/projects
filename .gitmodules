@@ -10,3 +10,6 @@
 [submodule "ecommerce-whislist"]
 	path = ecommerce-whislist
 	url = https://github.com/ilhamdjango/ecommerce-whislist.git
+[submodule "Ecommerce-user"]
+	path = Ecommerce-user
+	url = https://github.com/ilhamdjango/Ecommerce-user.git
