@@ -20,3 +20,7 @@ __pycache__/
 
 # Root səviyyəsində faylları nəzərə alma
 README.md
+
+
+# Docker Compose override local file
+docker-compose.override.yml
