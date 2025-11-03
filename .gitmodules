@@ -13,3 +13,6 @@
 [submodule "Ecommerce-user"]
 	path = Ecommerce-user
 	url = https://github.com/ilhamdjango/Ecommerce-user.git
+[submodule "ecommerce-shop"]
+	path = ecommerce-shop
+	url = https://github.com/ilhamdjango/ecommerce-shop.git
